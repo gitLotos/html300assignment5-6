@@ -1,27 +1,32 @@
-function Seattle(){
+function FetchWeather(APIurl){
   var xhttp = new XMLHttpRequest();
 
   xhttp.onreadystatechange = function() {
-    if (this.readyState == 4 && this.status == 200)
+    try
     {
-      document.getElementById("demo").innerHTML = xhttp.responseText;
-      //var response[] = xhttp.responseText;
+      if (this.readyState == 4 && this.status == 200)
+      {
+        var raw = xhttp.responseText;
+        var JSONResponse = JSON.parse(xhttp.responseText);
+
+        document.getElementById("response").innerHTML =
+        "Temperature: " + round(JSONResponse.main.temp * (9/5) - 459.67, 0) + ' DEG F ' +
+        "| Low Temperature: " + round(JSONResponse.main.temp_min * (9/5) - 459.67, 0) + ' DEG F ' +
+        "| High Temperature: " + round(JSONResponse.main.temp_max * (9/5) - 459.67, 0) + ' DEG F ' +
+        "| Humidity: " + JSONResponse.main.humidity + '%';
+
+        document.getElementById("response").innerHTML = raw;
+      }
+    }
+    catch(e)
+    {
+      document.getElementById("response").innerHTML = e.message;
     }
 };
-xhttp.open("GET", "http://api.openweathermap.org/data/2.5/weather?lat=47.6762&lon=-122.3182&APPID=c04d29b1b4f9b69dfcf0a68aabfa5cea", true);
+xhttp.open("GET", APIurl, true);
 xhttp.send();
 }
 
-
-function London(){
-  var xhttp = new XMLHttpRequest();
-
-  xhttp.onreadystatechange = function() {
-    if (this.readyState == 4 && this.status == 200)
-    {
-      document.getElementById("demo").innerHTML = xhttp.responseText;
-    }
-};
-xhttp.open("GET", "http://api.openweathermap.org/data/2.5/weather?lat=51.5074&lon=0.1278&APPID=c04d29b1b4f9b69dfcf0a68aabfa5cea", true);
-xhttp.send();
+function round(value, decimals) {
+  return Number(Math.round(value+'e'+decimals)+'e-'+decimals);
 }
