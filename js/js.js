@@ -15,7 +15,7 @@ function FetchWeather(APIurl){
         "| High Temperature: " + round(JSONResponse.main.temp_max * (9/5) - 459.67, 0) + ' DEG F ' +
         "| Humidity: " + JSONResponse.main.humidity + '%';
 
-        document.getElementById("response").innerHTML = raw;
+        //document.getElementById("response").innerHTML = raw;
       }
     }
     catch(e)
