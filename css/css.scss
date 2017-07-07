@@ -1,0 +1,14 @@
+@import "normalize.css";
+@import "vars.scss";
+
+body {
+  background-color: $black;
+
+  button {
+    &:hover {background: $hot-red;}
+  }
+
+  #response{
+    background-color: $cool-blue;
+  }
+}
